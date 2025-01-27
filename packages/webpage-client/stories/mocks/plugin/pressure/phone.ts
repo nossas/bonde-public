@@ -19,8 +19,8 @@ export default {
   editable: false,
   callTransition: {
     activistId: null,
-    twilioCallAccountSid: 'ACe4a352ef286835d94da7c2277f60cb34',
-    twilioCallCallSid: 'CAcc7733409548e363d40733ab958ce9b8',
+    twilioCallAccountSid: 'xxx',
+    twilioCallCallSid: 'xxxx',
     twilioCallFrom: '+551236215682',
     twilioCallId: 685,
     twilioCallTo: '+5512988801105',
