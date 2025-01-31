@@ -57,6 +57,16 @@ Para iniciar o ambiente de desenvolvimento, utilize o comando:
 pnpm --filter webpage-client m run dev
 ```
 
+**Variáveis de ambiente**
+```
+REACT_APP_DOMAIN_PUBLIC=
+REACT_APP_DOMAIN_API_GRAPHQL=
+REACT_APP_DOMAIN_API_REST=
+REACT_APP_DOMAIN_IMAGINARY=
+REACT_APP_PAGARME_KEY=
+ACTION_SECRET_KEY=
+```
+
 ---
 
 ## Estrutura do Projeto
