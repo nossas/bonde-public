@@ -54,13 +54,9 @@ const plip = async ({
 
     const { data, errors }: Response = await graphql(query);
 
-    console.log(errors);
-
     if (errors) {
-      console.log('data, errors', { data, errors });
       throw new Error('request_graphql_error');
     }
-    // console.log('data plip activists', data);
     return data;
   } catch (err) {
     // TODO: Show popup window error

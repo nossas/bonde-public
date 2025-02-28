@@ -161,6 +161,7 @@ const PlipForm: React.FC<Props> = ({ asyncFillWidget, widget }) => {
                 )}
               </Field>
 
+              {/* apenas para prod */}
               {widget.id === 79520 && (
                 <Field name="team" validate={required}>
                   {({ input }) => (
