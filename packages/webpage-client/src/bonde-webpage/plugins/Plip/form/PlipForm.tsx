@@ -161,20 +161,23 @@ const PlipForm: React.FC<Props> = ({ asyncFillWidget, widget }) => {
                 )}
               </Field>
 
-              <Field name="team" validate={required}>
-                {({ input }) => (
-                  <div>
-                    <label>Qual é seu boi?</label>
-                    <select {...input}>
-                      <option value="" disabled selected>
-                        selecione entre as opções
-                      </option>
-                      <option value="caprichoso">Caprichoso</option>
-                      <option value="garantido">Garantido</option>
-                    </select>
-                  </div>
-                )}
-              </Field>
+              {widget.id === 79520 && (
+                <Field name="team" validate={required}>
+                  {({ input }) => (
+                    <div>
+                      <label>Qual é seu boi?</label>
+                      <select {...input}>
+                        <option value="" disabled selected>
+                          selecione entre as opções
+                        </option>
+                        <option value="caprichoso">Caprichoso</option>
+                        <option value="garantido">Garantido</option>
+                      </select>
+                    </div>
+                  )}
+                </Field>
+              )}
+
               <button type="submit" value="submit">
                 {(widget.settings && widget.settings.button_text) || "Enviar"}
               </button>
