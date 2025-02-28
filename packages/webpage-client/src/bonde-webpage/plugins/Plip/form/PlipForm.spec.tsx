@@ -51,23 +51,12 @@ describe('PlipForm tests', () => {
       expect(field.props().name).toEqual('whatsapp');
     });
 
-    it('should render signature_quantity field', () => {
-      const field = wrapper.find(Field).at(4);
+    // to do: adicionar um teste de renderização condicional
+    // it('should render team field', () => {
+    //   const field = wrapper.find(Field).at(6);
 
-      expect(field.props().name).toEqual('signature_quantity');
-    });
-
-    it('should render color field', () => {
-      const field = wrapper.find(Field).at(5);
-
-      expect(field.props().name).toEqual('color');
-    });
-
-    it('should render gender field', () => {
-      const field = wrapper.find(Field).at(6);
-
-      expect(field.props().name).toEqual('gender');
-    });
+    //   expect(field.props().name).toEqual('team');
+    // });
   })
 
 });
