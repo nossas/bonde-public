@@ -6,9 +6,7 @@ export type Args = {
   email: string
   whatsapp: number
   widget_id: number
-  signature_quantity: string
-  color?: string
-  gender?: string
+  team?: String
 };
 
 export const plipQuery = `
@@ -25,9 +23,7 @@ const plip = async ({
   state,
   widget_id,
   whatsapp,
-  signature_quantity,
-  color,
-  gender
+  team
 }: Args): Promise<any> => {
 
   try {
@@ -43,9 +39,8 @@ const plip = async ({
         state,
         whatsapp,
         email,
-        expected_signatures: parseInt(signature_quantity),
-        color,
-        gender
+        expected_signatures: 10,
+        team
       },
       widget_id,
     };
