@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 import { Translate } from '../../../components/MobilizationClass';
 import { Count, Form, Targets } from '../components';
 import { GroupTarget } from '../components/Targets';
-import { Header } from '../styles';
+import { Header, Container } from '../styles';
 import { getTargetList } from '../utils';
 import EmailFields from './EmailFields';
 
@@ -30,6 +30,7 @@ type Props = {
       targets: string;
       finish_message_type?: string;
       finish_message?: Record<any, any>;
+      finish_message_html_text?: string;
       finish_message_background?: string;
       count_text?: string;
       show_city?: string;
@@ -161,7 +162,7 @@ export const EmailPressure = ({
             });
         }
       };
-
+  
   if (state.data) {
     const {
       FinishCustomMessage: {
@@ -174,13 +175,22 @@ export const EmailPressure = ({
       },
     } = overrides;
 
-    return finishMessageType === 'custom' ? (
-      <FinishCustomMessage
-        mobilization={mobilization}
-        widget={widget}
-        {...customProps}
-      />
-    ) : (
+    if (finishMessageType === 'html') {
+      return <Container dangerouslySetInnerHTML={{__html:widget.settings.finish_message_html_text || ''}} />;
+    }
+  
+    if (finishMessageType === 'custom') {
+      return (
+        <FinishCustomMessage
+          mobilization={mobilization}
+          widget={widget}
+          {...customProps}
+        />
+      );
+    }
+  
+    // Fallback para o tipo "share" ou qualquer outro valor não tratado
+    return (
       <FinishDefaultMessage
         mobilization={mobilization}
         widget={widget}
