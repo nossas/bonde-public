@@ -17,3 +17,12 @@ export const Header = styled.h2<HeaderProps>`
   font-weight: 400;
   text-align: center;
 `;
+
+export const Container = styled.div`
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  overflow: auto;
+`;
