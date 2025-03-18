@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import PlipDetails from "../components/PlipDetails";
 import PlipFormStyles from "./PlipFormStyles";
@@ -38,6 +38,8 @@ const composeValidators =
 
 const PlipForm: React.FC<Props> = ({ asyncFillWidget, widget }) => {
   const [pdf, setPdf] = useState<PlipFormState>({ data: [], submited: false });
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [dots, setDots] = useState("");
 
   let bgcolor = "rgba(0,0,0,0.25)";
   if (widget.settings && widget.settings.main_color) {
@@ -49,23 +51,37 @@ const PlipForm: React.FC<Props> = ({ asyncFillWidget, widget }) => {
     title = widget.settings.call_to_action;
   }
 
+  const onSubmit = (values) => {
+    setSubmitLoading(true);
+    asyncFillWidget({ ...values, widget_id: widget.id })
+      .then(({ create_plip }: any) => {
+        setPdf({ data: create_plip, submited: true });
+      })
+      .catch((err: any) => {
+        console.error("PlipPlugin: ", err);
+        setSubmitLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    if (!submitLoading) {
+      setDots("");
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setDots((prev) => (prev.length < 3 ? prev + "." : ""));
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [submitLoading]);
+
   return (
     <PlipFormStyles style={{ backgroundColor: bgcolor }}>
       {pdf.submited ? (
         <PlipDetails pdf={pdf} />
       ) : (
-        <Form
-          onSubmit={(values) => {
-            asyncFillWidget({ ...values, widget_id: widget.id })
-              .then(({ create_plip }: any) => {
-                // setPdf(true);
-                setPdf({ data: create_plip, submited: true });
-              })
-              .catch((err: any) => {
-                console.error("PlipPlugin: ", err);
-              });
-          }}
-        >
+        <Form onSubmit={onSubmit}>
           {({ handleSubmit }) => (
             <form onSubmit={handleSubmit} target="target_iframe" method="POST">
               <h2>{title}</h2>
@@ -146,17 +162,21 @@ const PlipForm: React.FC<Props> = ({ asyncFillWidget, widget }) => {
               </Field>
               <Field
                 name="whatsapp"
-                validate={composeValidators(mustBeNumber, minValue(11))}
+                validate={composeValidators(
+                  mustBeNumber,
+                  minValue(11),
+                  required
+                )}
               >
                 {({ input, meta }) => (
                   <div>
-                    <label>Whatsapp </label>
+                    <label>Whatsapp* </label>
                     <input
                       {...input}
                       type="text"
                       placeholder="não se esqueça do DDD!"
                     />
-                    {meta.error && meta.touched && <span>{meta.error}</span>}
+                    {meta.error && meta.touched && <span>WhatsApp {meta.error}</span>}
                   </div>
                 )}
               </Field>
@@ -164,9 +184,9 @@ const PlipForm: React.FC<Props> = ({ asyncFillWidget, widget }) => {
               {/* apenas para prod */}
               {widget.id === 79520 && (
                 <Field name="team" validate={required}>
-                  {({ input }) => (
+                  {({ input, meta }) => (
                     <div>
-                      <label>Qual é seu boi?</label>
+                      <label>Qual é seu boi?*</label>
                       <select {...input}>
                         <option value="" disabled selected>
                           selecione entre as opções
@@ -174,13 +194,17 @@ const PlipForm: React.FC<Props> = ({ asyncFillWidget, widget }) => {
                         <option value="caprichoso">Caprichoso</option>
                         <option value="garantido">Garantido</option>
                       </select>
+                      {meta.error && meta.touched && <span>É necessário selecionar uma opção</span>}
                     </div>
                   )}
                 </Field>
               )}
 
-              <button type="submit" value="submit">
-                {(widget.settings && widget.settings.button_text) || "Enviar"}
+              <button type="submit" value="submit" disabled={submitLoading}>
+                {submitLoading
+                  ? `Carregando, aguarde${dots}`
+                  : (widget.settings && widget.settings.button_text) ||
+                    "Enviar"}
               </button>
               <PlipLGPD />
             </form>
