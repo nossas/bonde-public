@@ -32,6 +32,8 @@ Para instalar as dependências do projeto, execute:
 pnpm i
 ```
 
+**NOTE:** Confira `NODE_ENV=development` está configurado para resolver problemas com o build das libs.
+
 ---
 
 ## Comandos Disponíveis
