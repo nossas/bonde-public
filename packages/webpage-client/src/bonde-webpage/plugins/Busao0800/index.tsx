@@ -1,8 +1,8 @@
 import React, { useState, useReducer } from "react"
 import styled from '@emotion/styled';
 
-import FormWidget from "./FormWidget";
-import { SUCCESS, FETCHING, FAILED, reducer, initialState } from "./redux";
+import FormWidget from "../Busao0800/FormWidget";
+import { SUCCESS, FETCHING, reducer, initialState } from "../Busao0800/redux";
 
 
 export const Container = styled.div`
@@ -15,26 +15,26 @@ export const Container = styled.div`
 `;
 
 
-const Busao0800 = ({ widget }) => {
+const Busao0800 = ({ widget }: any) => {
     const [values, setValues] = useState({
         "n_employees": 10,
         "transportation_cost": 1600.00
     })
     const [state, dispatch] = useReducer(reducer, initialState)
 
-    const {
-        main_color: mainColor,
-        call_to_action: callToAction,
-        title_text: titleText,
-        // Maybe `reply_email` is necessary...
-        // reply_email,
-        count_text: countText,
-        optimization_enabled: optimizationEnabled = true,
-        finish_message_type: finishMessageType,
-        disable_edit_field: disableEditField,
-        targets,
-        pressure_type,
-      } = widget.settings;
+    // const {
+    //     main_color: mainColor,
+    //     call_to_action: callToAction,
+    //     title_text: titleText,
+    //     // Maybe `reply_email` is necessary...
+    //     // reply_email,
+    //     count_text: countText,
+    //     optimization_enabled: optimizationEnabled = true,
+    //     finish_message_type: finishMessageType,
+    //     disable_edit_field: disableEditField,
+    //     targets,
+    //     pressure_type,
+    //   } = widget.settings;
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -73,6 +73,10 @@ const Busao0800 = ({ widget }) => {
             <div className="form-control">
                 <label htmlFor="id_email">E-mail</label>
                 <input id="id_email" type="email" name='email' value={values['email']} onChange={handleChange} />
+            </div>
+            <div className="form-control">
+                <label htmlFor="id_whatsapp">Whatsapp</label>
+                <input id="id_whatsapp" type="text" name='whatsapp' value={values['whatsapp']} onChange={handleChange} />
             </div>
             <div className="form-control">
                 <label htmlFor="id_n_employees">Número de colaboradores</label>

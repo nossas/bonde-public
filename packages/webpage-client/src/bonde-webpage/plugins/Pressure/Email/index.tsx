@@ -151,7 +151,7 @@ export const EmailPressure = ({
               if (!data.create_email_pressure) throw new Error('pressure_failed');
 
               analyticsEvents && analyticsEvents.pressureSavedData();
-              return dispatch({ type: 'success', payload: data });
+              return dispatch({ type: 'success', payload: { ...data, ...payload } });
             })
             .catch((_e: any) => {
               // console.log('e', e);
@@ -176,7 +176,12 @@ export const EmailPressure = ({
     } = overrides;
 
     if (finishMessageType === 'html') {
-      return <Container dangerouslySetInnerHTML={{__html:widget.settings.finish_message_html_text || ''}} />;
+      // Usa as variaveis do formulário de pressão
+      // email, name, lastname, state, city
+      const values = state.data.form_data
+      const content = widget.settings.finish_message_html_text?.replace(/{{(.*?)}}/g, (_, chave) => values[chave] || `{{${chave}}}`)
+      
+      return <Container dangerouslySetInnerHTML={{__html: content || ''}} />;
     }
   
     if (finishMessageType === 'custom') {
