@@ -5,6 +5,7 @@ import FormPlugin from './../../../../components/FormConnected';
 import PressureEmailPlugin from './../../../../components/PressureEmailConnected';
 import PlipPlugin from './../../../../components/PlipConnected';
 import PhoneWidgetConnected from '../../../../components/PhoneWidgetConnected';
+import Busao0800Connected from '../../../../components/Busao0800Connected';
 
 import {
   ContentPlugin,
@@ -56,6 +57,10 @@ const PluggableWidget = React.memo((props: any) => {
     {
       kind: 'phone',
       component: PhoneWidgetConnected
+    },
+    {
+      kind: 'busao0800',
+      component: Busao0800Connected
     }
   ];
 
