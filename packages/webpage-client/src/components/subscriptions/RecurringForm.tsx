@@ -71,7 +71,7 @@ const RecurringForm: React.FC<RecurringFormProps> = ({ id, token }) => {
                 {({ input, meta }) => (
                   <FormControl>
                     <FormLabel>Nova data de cobrança*</FormLabel>
-                    <InputMask mask="99/99/9999" {...input}>
+                    <InputMask mask="xx/xx/xxxx" {...input}>
                       {(inputProps) => <Input {...inputProps} type='text' placeholder='Ex: DD/MM/AAAA' />}
                     </InputMask>
                     {(meta.error || (meta.submitError && !meta.dirtySinceLastSubmit)) && meta.touched && <FormHelperText color="red.200">{meta.error || meta.submitError}</FormHelperText>}

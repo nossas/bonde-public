@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useField } from 'react-final-form';
-import InputMask from 'react-input-mask';
+// import InputMask from 'react-input-mask';
+
+import { useMask } from "@react-input/mask";
+import { useNumberFormat } from "@react-input/number-format";
 
 import Box from './Box';
 import Label from './Label';
@@ -26,7 +29,8 @@ export interface InputFieldProperties {
   label?: string;
   validate?: any;
   disabled?: boolean;
-  mask?: string;
+  mask?: any;
+  replacement?: any;
 }
 
 const InputField: React.FC<InputFieldProperties> = ({
@@ -36,29 +40,56 @@ const InputField: React.FC<InputFieldProperties> = ({
   label,
   disabled,
   validate,
-  mask
+  mask,
+  replacement
 }) => {
   const { input, meta } = useField(name, { validate });
 
+  let inputElement = (
+    <InputStyled
+      {...input}
+      disabled={disabled}
+      placeholder={placeholder}
+      type={type || input.type}
+    />
+  )
+
+  if (mask) {
+    const inputRef = useMask({ mask: mask, replacement: replacement ? replacement : { x: /\d/ }, showMask: true });
+
+    inputElement = (
+      <InputStyled
+        {...input}
+        ref={inputRef}
+        disabled={disabled}
+        placeholder={placeholder}
+        type={type || input.type}
+      />
+    )
+  }
+
+  if (type === "currency") {
+    const inputRef = useNumberFormat({ locales: "pt-BR", format: "currency", currency: "BRL" });
+
+    inputElement = (
+      <InputStyled
+        {...input}
+        ref={inputRef}
+        disabled={disabled}
+        placeholder={placeholder}
+        type="text"
+      />
+    )
+  }
+
   return (
-    <>
+    <div className="form-control">
       <Box>
         {label && <Label>{label}</Label>}
         {meta.touched && meta.error && <Raise>{meta.error}</Raise>}
       </Box>
-      {mask ? (
-        <InputMask mask={mask} value={input.value} onChange={input.onChange}>
-          {(inputProps) => <InputStyled {...inputProps} type="tel" disableUnderline />}
-        </InputMask>
-      ) : (
-        <InputStyled
-          {...input}
-          disabled={disabled}
-          placeholder={placeholder}
-          type={type || input.type}
-        />
-      )}
-    </>
+      {inputElement}
+    </div>
   );
 }
 

@@ -118,7 +118,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
                 {({ input, meta }) => (
                   <FormControl>
                     <FormLabel>Número*</FormLabel>
-                    <InputMask mask="9999 9999 9999 9999" {...input}>
+                    <InputMask mask="xxxx xxxx xxxx xxxx" {...input}>
                       {(inputProps) => <Input {...inputProps} type='text' placeholder='0000 0000 0000 0000' />}
                     </InputMask>
                     {(meta.error || (meta.submitError && !meta.dirtySinceLastSubmit)) && meta.touched && <FormHelperText color="red.200">{meta.error || meta.submitError}</FormHelperText>}
@@ -138,7 +138,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
                 {({ input, meta }) => (
                   <FormControl>
                     <FormLabel>Validade *</FormLabel>
-                    <InputMask mask="99/99" {...input}>
+                    <InputMask mask="xx/xx" {...input}>
                       {(inputProps) => <Input {...inputProps} type='text' placeholder='MM/AA' />}
                     </InputMask>
                     {(meta.error || (meta.submitError && !meta.dirtySinceLastSubmit)) && meta.touched && <FormHelperText color="red.200">{meta.error || meta.submitError}</FormHelperText>}
@@ -149,7 +149,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
                 {({ input, meta }) => (
                   <FormControl>
                     <FormLabel>CVV</FormLabel>
-                    <InputMask mask="999" {...input}>
+                    <InputMask mask="xxx" {...input}>
                       {(inputProps) => <Input {...inputProps} type='text' placeholder='Ex: 000' />}
                     </InputMask>
                     {(meta.error || (meta.submitError && !meta.dirtySinceLastSubmit)) && meta.touched && <FormHelperText color="red.200">{meta.error || meta.submitError}</FormHelperText>}

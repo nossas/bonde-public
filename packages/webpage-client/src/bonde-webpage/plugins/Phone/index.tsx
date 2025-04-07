@@ -136,7 +136,7 @@ const PhoneWidget = (props: any) => {
                   name='person.phone_number'
                   label="Telefone"
                   placeholder="Insira seu telefone. Ex: +5511987654321"
-                  mask="+55 (99) 9 9999-9999"
+                  mask="+55 (xx) x xxxx-xxxx"
                   validate={Validators.composeValidators(
                     Validators.required("Preenchimento obrigatório"),
                     Validators.isValidPhoneE164({

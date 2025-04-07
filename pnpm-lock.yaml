@@ -938,6 +938,8 @@ importers:
       '@emotion/styled': ^11.3.0
       '@next/bundle-analyzer': ^12.0.2
       '@next/eslint-plugin-next': ^12.0.3
+      '@react-input/mask': ^2.0.4
+      '@react-input/number-format': ^2.0.3
       '@slate-editor/alignment-plugin': workspace:^5.1.2
       '@slate-editor/bold-plugin': workspace:^5.1.2
       '@slate-editor/color-plugin': workspace:^5.1.2
@@ -1019,7 +1021,6 @@ importers:
       react-fontawesome: ^1.7.1
       react-ga: ^2.7.0
       react-i18next: ^11.8.13
-      react-input-mask: ^2.0.4
       react-intl: ^2.4.0
       react-redux: ^7.2.6
       react-router-dom: ^5.1.2
@@ -1042,6 +1043,8 @@ importers:
       '@emotion/css': 11.7.1
       '@emotion/react': 11.6.0_qewexek3mggvbeokd2goivthmy
       '@emotion/styled': 11.6.0_bxx66gdombxxitmllj5fuezuvy
+      '@react-input/mask': 2.0.4_ovbxh2p7plaij3b44wrcfog3zq
+      '@react-input/number-format': 2.0.3_ovbxh2p7plaij3b44wrcfog3zq
       '@slate-editor/alignment-plugin': link:../../libs/slate-editor-alignment-plugin
       '@slate-editor/bold-plugin': link:../../libs/slate-editor-bold-plugin
       '@slate-editor/color-plugin': link:../../libs/slate-editor-color-plugin
@@ -1092,7 +1095,6 @@ importers:
       react-fontawesome: 1.7.1_react@17.0.2
       react-ga: 2.7.0_react@17.0.2
       react-i18next: 11.14.2_fx4b3zen7tdcdwbld3lkpcycbu
-      react-input-mask: 2.0.4_sfoxds7t5ydpegc3knd667wn6m
       react-intl: 2.7.2_react@17.0.2
       react-redux: 7.2.6_sfoxds7t5ydpegc3knd667wn6m
       react-router-dom: 5.3.0_react@17.0.2
@@ -6091,7 +6093,7 @@ packages:
       '@emotion/react': '>=10.0.35'
       react: '>=16.8.6'
     dependencies:
-      '@emotion/react': 11.6.0_63c2cwvf5qxa7xvwanoyxjll5u
+      '@emotion/react': 11.6.0_oqfjjbydlevwhoma3gspdo4w3y
       react: 17.0.2
     dev: false
 
@@ -6404,8 +6406,8 @@ packages:
       '@chakra-ui/react-env': 1.1.1_react@17.0.2
       '@chakra-ui/system': 1.8.1_hsu7jhncr42zbs7etkvvdkscdu
       '@chakra-ui/utils': 1.9.1
-      '@emotion/react': 11.6.0_63c2cwvf5qxa7xvwanoyxjll5u
-      '@emotion/styled': 11.6.0_6kodsbfeouj3i2xi3r6t5ga57i
+      '@emotion/react': 11.6.0_oqfjjbydlevwhoma3gspdo4w3y
+      '@emotion/styled': 11.6.0_e4kk3rva445j2nofcqvgnixrvq
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     dev: false
@@ -6671,8 +6673,8 @@ packages:
       '@chakra-ui/react-utils': 1.2.1_react@17.0.2
       '@chakra-ui/styled-system': 1.14.1
       '@chakra-ui/utils': 1.9.1
-      '@emotion/react': 11.6.0_63c2cwvf5qxa7xvwanoyxjll5u
-      '@emotion/styled': 11.6.0_6kodsbfeouj3i2xi3r6t5ga57i
+      '@emotion/react': 11.6.0_oqfjjbydlevwhoma3gspdo4w3y
+      '@emotion/styled': 11.6.0_e4kk3rva445j2nofcqvgnixrvq
       react: 17.0.2
       react-fast-compare: 3.2.0
     dev: false
@@ -8413,6 +8415,53 @@ packages:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       tslib: 2.3.1
+    dev: false
+
+  /@react-input/core/2.0.2_ovbxh2p7plaij3b44wrcfog3zq:
+    resolution: {integrity: sha512-xLLBueYFbant9308uv3cIJQz5NYSixeGspjP3Nt6jogRHTcHYMRmlVFUuSzQiP8Z8/5BdnPkudRSsN0/AJ1fbw==}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      react: '>=16.8 || ^19.0.0-rc'
+      react-dom: '>=16.8 || ^19.0.0-rc'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 17.0.35
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /@react-input/mask/2.0.4_ovbxh2p7plaij3b44wrcfog3zq:
+    resolution: {integrity: sha512-NOielvQSBOlGLVuEcxtkjaGneC0GJFXjC7KOF99ed9H9XSDruWnQirjht5uSbWqLeeiOup0VD2YjM+6FH+aWBg==}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      react: '>=16.8 || ^19.0.0-rc'
+      react-dom: '>=16.8 || ^19.0.0-rc'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@react-input/core': 2.0.2_ovbxh2p7plaij3b44wrcfog3zq
+      '@types/react': 17.0.35
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /@react-input/number-format/2.0.3_ovbxh2p7plaij3b44wrcfog3zq:
+    resolution: {integrity: sha512-rgvp32USB+g+ZuQv+TJJHmM+2Te+hn88uMBKvLbY965gUMfYS6hONTcw0UzwUnm5IRWyEkiTyZQmd/1648fw8w==}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      react: '>=16.8 || ^19.0.0-rc'
+      react-dom: '>=16.8 || ^19.0.0-rc'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@react-input/core': 2.0.2_ovbxh2p7plaij3b44wrcfog3zq
+      '@types/react': 17.0.35
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /@rollup/plugin-commonjs/11.1.0_rollup@1.32.1:
@@ -25833,18 +25882,6 @@ packages:
       react: 17.0.2
     dev: false
 
-  /react-input-mask/2.0.4_sfoxds7t5ydpegc3knd667wn6m:
-    resolution: {integrity: sha512-1hwzMr/aO9tXfiroiVCx5EtKohKwLk/NT8QlJXHQ4N+yJJFyUuMT+zfTpLBwX/lK3PkuMlievIffncpMZ3HGRQ==}
-    peerDependencies:
-      react: '>=0.14.0'
-      react-dom: '>=0.14.0'
-    dependencies:
-      invariant: 2.2.4
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      warning: 4.0.3
-    dev: false
-
   /react-inspector/4.0.1_react@16.14.0:
     resolution: {integrity: sha512-xSiM6CE79JBqSj8Fzd9dWBHv57tLTH7OM57GP3VrE5crzVF3D5Khce9w1Xcw75OAbvrA0Mi2vBneR1OajKmXFg==}
     peerDependencies:
@@ -27746,7 +27783,7 @@ packages:
       slate: '>=0.32.0 <0.50.0'
     dependencies:
       isomorphic-base64: 1.0.2
-      slate: 0.41.3_xqes2epxgajwa2ujqadoxgmfjq
+      slate: 0.41.3_nri5ixjb2e3bg6wmozyotoe52y
     dev: false
 
   /slate-dev-environment/0.2.5:
