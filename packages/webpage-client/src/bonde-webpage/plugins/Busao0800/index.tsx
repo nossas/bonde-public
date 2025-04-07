@@ -1,11 +1,12 @@
-import React, { useState, useReducer } from "react"
+import React, { useReducer } from "react"
 import styled from '@emotion/styled';
 
-import FormWidget from "../Busao0800/FormWidget";
+import LGPD from "../../components/ux/LGPD";
+import { Form, Button, InputField, Validators } from "../../components/forms";
 import { SUCCESS, FETCHING, reducer, initialState } from "../Busao0800/redux";
 
 
-export const Container = styled.div`
+export const PostActionBox = styled.div`
   background-color: white;
   padding: 16px;
   border-radius: 8px;
@@ -14,80 +15,134 @@ export const Container = styled.div`
   overflow: auto;
 `;
 
+export const Container = styled.div<{ mainColor: string }>`
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 
-const Busao0800 = ({ widget }: any) => {
-    const [values, setValues] = useState({
-        "n_employees": 10,
-        "transportation_cost": 1600.00
-    })
-    const [state, dispatch] = useReducer(reducer, initialState)
+  h3 {
+    padding: 15px 20px;
+    background: ${props => props.mainColor || '#000'};
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  button[type="submit"] {
+    background: ${props => props.mainColor || '#000'};
+    border-color: ${props => props.mainColor || '#000'};
 
-    // const {
-    //     main_color: mainColor,
-    //     call_to_action: callToAction,
-    //     title_text: titleText,
-    //     // Maybe `reply_email` is necessary...
-    //     // reply_email,
-    //     count_text: countText,
-    //     optimization_enabled: optimizationEnabled = true,
-    //     finish_message_type: finishMessageType,
-    //     disable_edit_field: disableEditField,
-    //     targets,
-    //     pressure_type,
-    //   } = widget.settings;
-
-    const handleSubmit = (evt) => {
-        evt.preventDefault();
-        dispatch({ type: FETCHING });
-        setTimeout(() => {
-            // Calcula a economia
-            const totalCost = (values.n_employees - 9) * 170;
-            const saveMoney = values.transportation_cost - totalCost;
-
-            dispatch({ type: SUCCESS, payload: { form_data: { ...values, totalCost, saveMoney } } });
-        }, 10)
+    &:hover {
+      filter: brightness(90%);
     }
+  }
+`
 
-    const handleChange = (evt) => {
-        setValues({
-            ...values,
-            [evt.target.name]: evt.target.value
-        })
-    }
+export const FormPanel = styled.div`
+  .form-control {
+    padding: 15px 20px 0;
+    border-bottom: 1px solid #eee;
+  }
+`
 
-    if (state.data) {
-      // Usa as variaveis do formulário de pressão
-      // email, name, lastname, state, city
-      const values = state.data.form_data
-      const content = widget.settings.finish_message_html_text?.replace(/{{(.*?)}}/g, (_, chave) => values[chave] || `{{${chave}}}`)
-      
-      return <Container dangerouslySetInnerHTML={{__html: content || ''}} />;
+export const FormFooter = styled.div`
+  padding: 10px 20px
+`
+
+const { required } = Validators;
+
+
+const Busao0800 = (props: any) => {
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  const { widget, asyncWidgetActionCreate } = props
+
+  const {
+    settings: {
+      main_color: mainColor,
+      title_text: titleText,
+      call_to_action: callToAction,
+      button_text: buttonText
     }
-    
-    return (
-        <FormWidget widget={widget} handleSubmit={handleSubmit}>
-            <div className="form-control">
-                <label htmlFor="id_full_name">Nome completo</label>
-                <input id="id_full_name" name='full_name' value={values['name']} onChange={handleChange} />
-            </div>
-            <div className="form-control">
-                <label htmlFor="id_email">E-mail</label>
-                <input id="id_email" type="email" name='email' value={values['email']} onChange={handleChange} />
-            </div>
-            <div className="form-control">
-                <label htmlFor="id_whatsapp">Whatsapp</label>
-                <input id="id_whatsapp" type="text" name='whatsapp' value={values['whatsapp']} onChange={handleChange} />
-            </div>
-            <div className="form-control">
-                <label htmlFor="id_n_employees">Número de colaboradores</label>
-                <input id="id_n_employees" type="number" name='n_employees' value={values['n_employees']} onChange={handleChange} />
-            </div>
-            <div className="form-control">
-                <label htmlFor="id_transportation_cost">Valor total gasto com Vale Transporte </label>
-                <input id="id_transportation_cost" type="number" name='transportation_cost' value={values['transportation_cost']} onChange={handleChange} />
-            </div>
-        </FormWidget>
-    )
+  } = widget;
+
+  const handleSubmit = async ({ n_employees, transportation_cost, ...values }: any) => {
+    dispatch({ type: FETCHING });
+
+    const cost = parseFloat(transportation_cost.replace("R$ ", "").replace(".", "").replace(",", "."))
+    const newCost = (n_employees - 9) * 170;
+    const saveMoney = cost - newCost;
+
+    await asyncWidgetActionCreate({
+      ...values,
+      widget_id: widget.id,
+      custom_fields: { n_employees, transportation_cost: cost, save_money: saveMoney }
+    });
+
+    // Adiciona Contexto para utilizar na mensagem de agradecimento
+    const context = { ...values, saveMoney, newCost, nEmployees: n_employees, cost: transportation_cost };
+    dispatch({ type: SUCCESS, payload: { context } });
+  }
+
+  if (state.data) {
+    // Usa as variaveis do formulário de pressão
+    // email, name, lastname, state, city
+    const values = state.data.context
+    const content = widget.settings.finish_message_html_text?.replace(/{{(.*?)}}/g, (_, chave) => values[chave] || `{{${chave}}}`)
+
+    return <PostActionBox dangerouslySetInnerHTML={{ __html: content || '' }} />;
+  }
+
+  return (
+    <Container mainColor={mainColor}>
+      <h3>{titleText || callToAction}</h3>
+      <Form onSubmit={handleSubmit} initialValues={{ n_employees: 10, transportation_cost: "R$ 1.600,00" }}>
+        {({ submitting }: any) => (
+          <FormPanel>
+            <InputField
+              name="first_name"
+              label="Nome"
+              placeholder="Insira seu nome"
+              validate={required("Preenchimento obrigatório")}
+            />
+            <InputField
+              name="last_name"
+              label="Sobrenome"
+              placeholder="Insira seu sobrenome"
+              validate={required("Preenchimento obrigatório")}
+            />
+            <InputField
+              name="email"
+              label="E-mail"
+              placeholder="Insira seu e-mail"
+              type="email"
+              validate={required("Preenchimento obrigatório")}
+            />
+            <InputField
+              name="phone"
+              label="Whatsapp"
+              mask="(xx) x xxxx-xxxx"
+              placeholder="(xx) x xxxx-xxxx"
+            />
+            <InputField
+              name="n_employees"
+              label="Número de colaboradores"
+              type="number"
+            />
+            <InputField
+              name="transportation_cost"
+              label="Valor total gasto com Vale Transporte"
+              type="currency"
+            />
+            <FormFooter>
+              <Button type="submit" disabled={submitting}>{buttonText || "Enviar"}</Button>
+              <LGPD color="#545454" />
+            </FormFooter>
+          </FormPanel>
+        )}
+      </Form>
+    </Container>
+  )
 }
 
 export default Busao0800

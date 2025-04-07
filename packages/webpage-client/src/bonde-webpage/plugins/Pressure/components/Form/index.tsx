@@ -154,7 +154,7 @@ const PressureForm = ({
                         label={t('Pressure Phone Label')}
                         name="phone"
                         placeholder={t('Pressure Phone Placeholder')}
-                        mask="+55 (99) 9 9999-9999"
+                        mask="+55 (xx) x xxxx-xxxx"
                       />
                     </WrapInputs>
                   )}

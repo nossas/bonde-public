@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import InputMask from 'react-input-mask';
+
 import {
   Button,
   Box,
@@ -118,9 +118,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({
                 {({ input, meta }) => (
                   <FormControl>
                     <FormLabel>Número*</FormLabel>
-                    <InputMask mask="xxxx xxxx xxxx xxxx" {...input}>
-                      {(inputProps) => <Input {...inputProps} type='text' placeholder='0000 0000 0000 0000' />}
-                    </InputMask>
+                    <Input {...input} type='text' placeholder='0000 0000 0000 0000' />
                     {(meta.error || (meta.submitError && !meta.dirtySinceLastSubmit)) && meta.touched && <FormHelperText color="red.200">{meta.error || meta.submitError}</FormHelperText>}
                   </FormControl>
                 )}

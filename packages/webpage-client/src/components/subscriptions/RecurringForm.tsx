@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import InputMask from 'react-input-mask';
 import {
   Button,
   Box,
@@ -71,9 +70,7 @@ const RecurringForm: React.FC<RecurringFormProps> = ({ id, token }) => {
                 {({ input, meta }) => (
                   <FormControl>
                     <FormLabel>Nova data de cobrança*</FormLabel>
-                    <InputMask mask="xx/xx/xxxx" {...input}>
-                      {(inputProps) => <Input {...inputProps} type='text' placeholder='Ex: DD/MM/AAAA' />}
-                    </InputMask>
+                    <Input {...input} type='text' placeholder='Ex: DD/MM/AAAA' />
                     {(meta.error || (meta.submitError && !meta.dirtySinceLastSubmit)) && meta.touched && <FormHelperText color="red.200">{meta.error || meta.submitError}</FormHelperText>}
                   </FormControl>
                 )}
