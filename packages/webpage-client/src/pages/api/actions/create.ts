@@ -1,5 +1,4 @@
 import getConfig from 'next/config';
-import graphql from "../../../activists/request-graphql";
 
 
 let endpoint: string;
@@ -7,7 +6,7 @@ let endpoint: string;
 if (process.env.NODE_ENV !== 'test') {
   const { publicRuntimeConfig } = getConfig();
   endpoint = publicRuntimeConfig.domainApiGraphql || "https://api-graphql.staging.bonde.org/v1/graphql"
-};
+}
 
 interface Input {
   first_name: string;
