@@ -1,5 +1,6 @@
 import React, { useReducer } from "react"
 import styled from '@emotion/styled';
+import { isMobile } from 'react-device-detect';
 
 import LGPD from "../../components/ux/LGPD";
 import { Form, Button, InputField, Validators } from "../../components/forms";
@@ -80,15 +81,19 @@ const Busao0800 = (props: any) => {
     });
 
     // Adiciona Contexto para utilizar na mensagem de agradecimento
-    const context = { ...values, saveMoney, newCost, nEmployees: n_employees, cost: transportation_cost };
+    const context = { ...values, saveMoney, newCost, nEmployees: n_employees, cost };
     dispatch({ type: SUCCESS, payload: { context } });
   }
 
   if (state.data) {
-    // Usa as variaveis do formulário de pressão
-    // email, name, lastname, state, city
-    const values = state.data.context
-    const content = widget.settings.finish_message_html_text?.replace(/{{(.*?)}}/g, (_, chave) => values[chave] || `{{${chave}}}`)
+    // Novo padrão de mensagem Pós Ação com Editor HTML
+    const values = state.data.context // Uso de váriaveis passada como contexto após a requisição com sucesso.
+    let content = widget.settings.finish_message_html_text?.replace(/{{(.*?)}}/g, (_, chave) => values[chave] || `{{${chave}}}`)
+
+    if (isMobile) {
+      // Ajuste link de compartilhamento no whatsapp para dispositivo móvel
+      content = content.replace("https://web.whatsapp.com/", "whatsapp://")
+    }
 
     return <PostActionBox dangerouslySetInnerHTML={{ __html: content || '' }} />;
   }
