@@ -90,6 +90,20 @@ const Busao0800 = (props: any) => {
     const values = state.data.context // Uso de váriaveis passada como contexto após a requisição com sucesso.
     let content = widget.settings.finish_message_html_text?.replace(/{{(.*?)}}/g, (_, chave) => values[chave] || `{{${chave}}}`)
 
+    // Testes com condicionais
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+    if (values.nEmployees < 10) {
+      doc.querySelectorAll('span[data-conditional="mostrar_se_10_mais"]').forEach(
+        span => span.remove()
+      );
+    } else {
+      doc.querySelectorAll('span[data-conditional="mostrar_se_menos_10"]').forEach(
+        span => span.remove()
+      );
+    }
+    content = doc.body.innerHTML;
+
     if (isMobile) {
       // Ajuste link de compartilhamento no whatsapp para dispositivo móvel
       content = content.replace("https://web.whatsapp.com/", "whatsapp://")
