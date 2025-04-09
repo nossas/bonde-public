@@ -115,7 +115,7 @@ const Busao0800 = (props: any) => {
   return (
     <Container mainColor={mainColor}>
       <h3>{titleText || callToAction}</h3>
-      <Form onSubmit={handleSubmit} initialValues={{ n_employees: 10, transportation_cost: "R$ 1.600,00" }}>
+      <Form onSubmit={handleSubmit} initialValues={{ n_employees: 0, transportation_cost: "R$ 0,00" }}>
         {({ submitting }: any) => (
           <FormPanel>
             <InputField
