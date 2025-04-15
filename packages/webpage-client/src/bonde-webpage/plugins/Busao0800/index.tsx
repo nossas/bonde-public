@@ -93,15 +93,32 @@ const Busao0800 = (props: any) => {
     // Testes com condicionais
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');
-    if (values.nEmployees < 10) {
-      doc.querySelectorAll('span[data-conditional="mostrar_se_10_mais"]').forEach(
-        span => span.remove()
-      );
-    } else {
-      doc.querySelectorAll('span[data-conditional="mostrar_se_menos_10"]').forEach(
-        span => span.remove()
-      );
-    }
+
+    // Selecionar todos os spans com atributo data-conditional
+    const spans = doc.querySelectorAll('span[data-conditional]');
+
+    spans.forEach(span => {
+      const condicao = span.getAttribute('data-conditional');
+
+      switch (condicao) {
+          case 'mostrar_se_valor_negativo':
+              if (values.saveMoney >= 0) {
+                  span.remove();
+              }
+              break;
+          case 'mostrar_se_10_mais':
+              if (values.saveMoney < 0 || values.nEmployees < 10) {
+                  span.remove();
+              }
+              break;
+          case 'mostrar_se_menos_10':
+              if (values.saveMoney < 0 || values.nEmployees >= 10) {
+                  span.remove();
+              }
+              break;
+      }
+  });
+
     content = doc.body.innerHTML;
 
     if (isMobile) {
