@@ -57,15 +57,13 @@ const Busao0800 = (props: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const { widget, asyncWidgetActionCreate } = props
-
+  const settings = widget.settings || {};
   const {
-    settings: {
-      main_color: mainColor,
-      title_text: titleText,
-      call_to_action: callToAction,
-      button_text: buttonText
-    }
-  } = widget;
+    main_color: mainColor,
+    title_text: titleText,
+    call_to_action: callToAction,
+    button_text: buttonText
+  } = settings;
 
   const handleSubmit = async ({ n_employees, transportation_cost, ...values }: any) => {
     dispatch({ type: FETCHING });

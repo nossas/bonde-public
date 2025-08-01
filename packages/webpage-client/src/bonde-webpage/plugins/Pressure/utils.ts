@@ -102,7 +102,7 @@ export const getEmailTarget = (target: string) => {
 
 export const getTargetList = (targets: any): Array<string> => {
   if (typeof targets === 'object') return targets;
-
+  if (!targets) return [];
   return targets.split(';').filter((target: string) => !!target.trim());
 };
 
