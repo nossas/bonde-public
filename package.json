@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "pnpm m run build",
-    "start": "pnpm m run start"
+    "start": "pnpm m run start",
+    "dev": "pnpm --filter webpage-client m run dev"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.6.6",
