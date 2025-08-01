@@ -85,9 +85,7 @@ function Page({ mobilization, blocks, widgets, targets }: PageProperties) {
         />
         <script
           async
-          src={`https://www.googletagmanager.com/gtag/js?id=${{
-            googleAnalyticsCode,
-          }}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsCode}`}
         ></script>
         <script
           dangerouslySetInnerHTML={{
