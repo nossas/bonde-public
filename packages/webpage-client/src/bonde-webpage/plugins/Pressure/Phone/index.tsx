@@ -1,18 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { ChakraProvider } from '@chakra-ui/react';
+import React from 'react';
 import { PhonePressureForm } from "@bonde/actions-components";
+import styled from 'styled-components';
 import { defaultPhoneCall } from "./api";
 
-export default function PhoneWidget() {
+type Settings = {
+  main_color?: string;
+  title_text?: string;
+}
 
+type Widget = {
+  id: number;
+  settings?: Settings;
+}
+
+type Props = {
+  widget: Widget
+}
+
+export default function PhoneWidget({ widget }: Props) {
+  const {
+    main_color: mainColor,
+    title_text: titleText,
+  } = widget.settings || {};
   // const 
+  console.log("{widget}", {widget});
 
   return (
-    <ChakraProvider>
+    <Styled>
+      {titleText && <h2 style={{ backgroundColor: mainColor }}>{titleText}</h2>}
       <PhonePressureForm
-        widgetId={12}
+        widgetId={widget.id}
         action={defaultPhoneCall}
-        mainColor="blue"
+        mainColor={mainColor || "blue"}
         guideline="Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!"
         targets={[
           {
@@ -21,9 +40,69 @@ export default function PhoneWidget() {
           }
         ]}
       />
-    </ChakraProvider>
+    </Styled>
   );
 }
+
+const Styled = styled.div`
+  font-family: "Nunito Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+  h2 {
+    margin: 0;
+    padding: 1rem 0;
+    text-align: center;
+    color: white;
+  }
+
+  .bonde-phone-pressure-form form {
+    display: flex;
+    flex-direction: column;
+
+    .bonde-action-field {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 2rem 0.5rem;
+      border-bottom: 1px solid #eee;
+
+      input {
+        border: none;
+      }
+      
+      label {
+        line-height: 1.5;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #aaa;
+      }
+    }
+    
+    .bonde-action-field__error {
+      position: absolute;
+      right: 2rem;
+      top: 1rem;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.36;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: rgb(255, 9, 49);
+    }
+
+    .bonde-action-button {
+      background-color: var(--bonde-action-brand-color);
+      border: none;
+      padding: 1rem 0;
+      font-weight: bold;
+      color: white;
+      text-transform: uppercase;
+      margin-top: 1rem;
+    }
+  }
+`
 
 // import styled from '@emotion/styled';
 
