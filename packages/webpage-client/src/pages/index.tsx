@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import getConfig from 'next/config';
+import Script from 'next/script';
 import i18n from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import Error404 from './404';
@@ -55,6 +56,19 @@ function Page({ mobilization, blocks, widgets, targets }: PageProperties) {
   const domain = customDomain || `${slug}.bonde.org`;
   const url = `https://${domain}`;
 
+  // GTM
+  const auth = null;
+  const preview = null;
+  const dataLayer = null;
+  // const nonce = null;
+
+  const gtmId = googleAnalyticsCode;
+  const gtmScriptUrl = 'https://www.googletagmanager.com/gtm.js';
+  const dataLayerName = 'dataLayer';
+  const gtmLayer = dataLayerName !== 'dataLayer' ? `&l=${dataLayerName}` : '';
+  const gtmAuth = auth ? `&gtm_auth=${auth}` : '';
+  const gtmPreview = preview ? `&gtm_preview=${preview}&gtm_cookies_win=x` : ''
+
   return (
     <div className="container">
       <Head>
@@ -83,11 +97,11 @@ function Page({ mobilization, blocks, widgets, targets }: PageProperties) {
           sizes="16x16"
           href={favicon || '/static/icon/favicon-16.png'}
         />
-        <script
+        {/* <script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsCode}`}
-        ></script>
-        <script
+        ></script> */}
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -100,6 +114,24 @@ function Page({ mobilization, blocks, widgets, targets }: PageProperties) {
               });
             `,
           }}
+        /> */}
+        <Script
+          id="_next-gtm-init"
+          dangerouslySetInnerHTML={{
+            __html: `
+        (function(w,l){
+          w[l]=w[l]||[];
+          w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+          ${dataLayer ? `w[l].push(${JSON.stringify(dataLayer)})` : ''}
+        })(window,'${dataLayerName}');`,
+          }}
+          // nonce={nonce}
+        />
+        <Script
+          id="_next-gtm"
+          data-ntpc="GTM"
+          src={`${gtmScriptUrl}?id=${gtmId}${gtmLayer}${gtmAuth}${gtmPreview}`}
+          // nonce={nonce}
         />
       </Head>
       <Styles />
