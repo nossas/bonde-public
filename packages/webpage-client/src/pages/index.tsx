@@ -83,6 +83,7 @@ function Page({ mobilization, blocks, widgets, targets }: PageProperties) {
           sizes="16x16"
           href={favicon || '/static/icon/favicon-16.png'}
         />
+        {/* GA e GTM */}
         <script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsCode}`}
@@ -95,7 +96,6 @@ function Page({ mobilization, blocks, widgets, targets }: PageProperties) {
               gtag('js', new Date());
               gtag('config', '${googleAnalyticsCode}', {
                 debug_mode: true,
-                page_location: '${url}',
                 page_title: '${name}'
               });
             `,
