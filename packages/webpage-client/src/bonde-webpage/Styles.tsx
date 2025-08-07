@@ -774,6 +774,13 @@ const reactModalStyles = css`
     font-style: italic;
     color: #555;
   }
+
+  .bonde-phone-action__divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 1rem 0;
+    width: 100%;
+  }
   
 `;
 
