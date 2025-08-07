@@ -47,14 +47,22 @@ export default function PhoneWidget({ widget, asyncFetchTargets }: Props) {
     <Styled>
       {titleText && <h2 style={{ backgroundColor: mainColor }}>{titleText}</h2>}
       {/* Targets */}
-      <div className="targets">
-        {targets.map((target, index) => (
-          <div key={`target${index}`} className="target">
-            <span>{target.name}</span>
-            <span>{target.phone}</span>
+      <div className="target-section">
+        <h3>Quem você vai pressionar? (1 alvo)</h3>
+        <div className="targets-scroll-container">
+          <div className="targets-horizontal">
+            {targets.map((target, index) => (
+              <div key={`target-${index}`} className="target-item">
+                <strong>{target.name}</strong>
+                {target.phone && <div>{target.phone}</div>}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
+
+      <div className="divider"></div>
+    
       <PhonePressureForm
         widgetId={widget.id}
         action={defaultPhoneCall}
@@ -88,13 +96,48 @@ const Styled = styled.div`
     color: white;
   }
 
-  .targets {
-    display: flex;
-
-    .target {
+  .target-section {
+    padding: 1.5rem;
+    background-color: rgba(0,0,0,0.2);
+    
+    .targets-scroll-container {
+      overflow-x: auto;
+      padding-bottom: 10px;
+      -webkit-overflow-scrolling: touch;
+      
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 2px;
+      }
+    }
+    
+    .targets-horizontal {
       display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
+      gap: 0.8rem;
+      width: max-content;
+    }
+    
+    .target-item {
+      padding: 0.75rem;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+      min-width: 200px;
+      flex-shrink: 0;
+      
+      strong {
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 0.3rem;
+      }
+      
+      div {
+        font-size: 0.9rem;
+        color: #555;
+      }
     }
   }
 

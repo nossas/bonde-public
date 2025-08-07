@@ -683,28 +683,100 @@ const globalStyles = css`
 const reactModalStyles = css`
   .bonde-action-modal__overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.75);
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
   }
 
   .bonde-action-modal__content {
     position: absolute;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-    border: 1px solid #ccc;
-    background: #fff;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 4px;
-    outline: none;
-    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px 32px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+
+    .bonde-action-modal__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .bonde-action-modal__header {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .bonde-action-modal__body {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    &.bonde-action-modal--calling {
+      .bonde-action-modal__footer {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e0e0e0;
+        font-size: 0.875rem;
+        color: #666;
+        font-weight: 500;
+      }
+    }
+
+    &.bonde-action-modal--success {
+      .bonde-action-modal__body {
+        .bonde-phone-action__stack {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .bonde-phone-action__stack--segmented {
+          gap: 2rem;
+        }
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    &.bonde-action-modal--in-progress {
+      .bonde-action-modal__body {
+        .bonde-phone-action__stack {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+    }
   }
+
+  .bonde-phone-action__quote {
+    margin: 0.75rem 0;
+    padding-left: 1rem;
+    border-left: 4px solid #ccc;
+    font-style: italic;
+    color: #555;
+  }
+  
 `;
+
 
 const Styles: React.FC = ({ children }) => (
   <>
