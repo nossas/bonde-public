@@ -97,21 +97,23 @@ const Styled = styled.div`
   }
 
   .target-section {
-    padding: 1.5rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
     background-color: rgba(0,0,0,0.2);
     
     .targets-scroll-container {
       overflow-x: auto;
-      padding-bottom: 10px;
+      padding-bottom: 16px;
       -webkit-overflow-scrolling: touch;
       
       &::-webkit-scrollbar {
-        height: 4px;
+        height: 6px;
       }
       
       &::-webkit-scrollbar-thumb {
         background-color: rgba(0,0,0,0.2);
-        border-radius: 2px;
+        border-radius: 8px;
       }
     }
     

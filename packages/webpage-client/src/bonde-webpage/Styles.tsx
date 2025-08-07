@@ -767,6 +767,58 @@ const reactModalStyles = css`
     }
   }
 
+  .bonde-phone-call__retry-button {
+    /* Layout */
+    display: flex;
+    float: right;
+    gap: 10px;
+    max-width: 280px;
+    margin: 10px auto 0;
+    padding: 10px 20px;
+    
+    /* Estilo visual */
+    background-color: var(--bonde-action-brand-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    /* Tipografia */
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-transform: uppercase;
+    
+    /* Interação */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* Ícone */
+    svg {
+      font-size: 16px;
+      margin-right: 2px;
+    }
+  }
+  
+  .bonde-phone-call__retry-button:hover {
+    background-color: var(--bonde-action-brand-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  .bonde-phone-call__retry-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  
+  @media (max-width: 480px) {
+    .bonde-phone-call__retry-button {
+      padding: 14px 20px;
+      font-size: 15px;
+      max-width: 100%;
+    }
+  }
+
   .bonde-phone-action__quote {
     margin: 0.75rem 0;
     padding-left: 1rem;
@@ -780,8 +832,7 @@ const reactModalStyles = css`
     background-color: #e0e0e0;
     margin: 1rem 0;
     width: 100%;
-  }
-  
+  }  
 `;
 
 
