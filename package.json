@@ -26,6 +26,9 @@
     "serve": "13",
     "styled-components": "5.0.1"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "browserslist": {
     "production": [
       ">0.2%",

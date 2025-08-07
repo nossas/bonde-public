@@ -680,11 +680,38 @@ const globalStyles = css`
   }
 `;
 
+const reactModalStyles = css`
+  .bonde-action-modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+
+  .bonde-action-modal__content {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+  }
+`;
+
 const Styles: React.FC = ({ children }) => (
   <>
     <Global styles={globalStyles} />
     <Global styles={layoutStyles} />
     <Global styles={slateEditorStyles} />
+    <Global styles={reactModalStyles} />
     {children}
   </>
 );

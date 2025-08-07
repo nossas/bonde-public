@@ -1,0 +1,3 @@
+[submodule "packages/actions-components"]
+	path = packages/actions-components
+	url = git@github.com:nossas/bonde-actions-components.git

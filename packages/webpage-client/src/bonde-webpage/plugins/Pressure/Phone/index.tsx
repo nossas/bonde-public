@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PhonePressureForm } from "@bonde/actions-components";
 import styled from 'styled-components';
 import { defaultPhoneCall } from "./api";
+
+
+type Target = {
+  name: string;
+  phone: string;
+}
 
 type Settings = {
   main_color?: string;
@@ -15,30 +21,55 @@ type Widget = {
 
 type Props = {
   widget: Widget
+  asyncFetchTargets: ({ widget_id }: { widget_id: number }) => Promise<void>
 }
 
-export default function PhoneWidget({ widget }: Props) {
+export default function PhoneWidget({ widget, asyncFetchTargets }: Props) {
+  const [targets, setTargets] = useState<Target[]>([])
+
   const {
     main_color: mainColor,
     title_text: titleText,
   } = widget.settings || {};
+
   // const 
-  console.log("{widget}", {widget});
+  // console.log("{widget}", {widget});
+
+  useEffect(() => {
+    asyncFetchTargets({ widget_id: widget.id })
+      .then(({ data }: any) => {
+        // console.log("asyncFetchTargets", { data });
+        setTargets(data.pressure_targets[0].targets as Target[]);
+      })
+  }, [])
 
   return (
     <Styled>
       {titleText && <h2 style={{ backgroundColor: mainColor }}>{titleText}</h2>}
+      {/* Targets */}
+      <div className="targets">
+        {targets.map((target, index) => (
+          <div key={`target${index}`} className="target">
+            <span>{target.name}</span>
+            <span>{target.phone}</span>
+          </div>
+        ))}
+      </div>
       <PhonePressureForm
         widgetId={widget.id}
         action={defaultPhoneCall}
         mainColor={mainColor || "blue"}
         guideline="Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!"
-        targets={[
-          {
-            name: "Igor",
-            phone: "+55 31 98286-6512"
-          }
-        ]}
+        targets={targets}
+        onFinish={(state) => {
+          console.log("onFinish", { state });
+        }}
+        onFail={(state) => {
+          console.log("onFinish", { state });
+        }}
+        onSuccess={() => {
+          console.log("onSuccess");
+        }}
       />
     </Styled>
   );
@@ -55,6 +86,16 @@ const Styled = styled.div`
     padding: 1rem 0;
     text-align: center;
     color: white;
+  }
+
+  .targets {
+    display: flex;
+
+    .target {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
   }
 
   .bonde-phone-pressure-form form {
