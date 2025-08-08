@@ -42,6 +42,8 @@ COPY . .
 
 ENV SKIP_PREFLIGHT_CHECK=true
 
+RUN pnpm --filter "./packages/actions-components" run build
+
 RUN pnpm i
 
 RUN pnpm --filter "./libs/**" m run build
