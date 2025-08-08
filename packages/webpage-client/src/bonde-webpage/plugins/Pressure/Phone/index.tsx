@@ -12,6 +12,9 @@ type Target = {
 type Settings = {
   main_color?: string;
   title_text?: string;
+  call_script?: string;
+  targets?: Target[];
+  finish_message_html_text?: string;
 }
 
 type Widget = {
@@ -21,27 +24,17 @@ type Widget = {
 
 type Props = {
   widget: Widget
-  asyncFetchTargets: ({ widget_id }: { widget_id: number }) => Promise<void>
 }
 
-export default function PhoneWidget({ widget, asyncFetchTargets }: Props) {
-  const [targets, setTargets] = useState<Target[]>([])
+export default function PhoneWidget({ widget }: Props) {
 
   const {
     main_color: mainColor,
     title_text: titleText,
+    call_script: guideline,
+    targets = [],
+    finish_message_html_text: postActionHtml
   } = widget.settings || {};
-
-  // const 
-  // console.log("{widget}", {widget});
-
-  useEffect(() => {
-    asyncFetchTargets({ widget_id: widget.id })
-      .then(({ data }: any) => {
-        // console.log("asyncFetchTargets", { data });
-        setTargets(data.pressure_targets[0].targets as Target[]);
-      })
-  }, [])
 
   return (
     <Styled>
@@ -67,8 +60,9 @@ export default function PhoneWidget({ widget, asyncFetchTargets }: Props) {
         widgetId={widget.id}
         action={defaultPhoneCall}
         mainColor={mainColor || "blue"}
-        guideline="Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!"
+        guideline={guideline || ""}
         targets={targets}
+        postActionHtml={postActionHtml}
         onFinish={(state) => {
           console.log("onFinish", { state });
         }}
@@ -164,6 +158,11 @@ const Styled = styled.div`
         font-weight: 600;
         color: #aaa;
       }
+    }
+    
+    .bonde-action-guideline {
+      font-size: 16px;
+      color: #505050;
     }
     
     .bonde-action-field__error {
