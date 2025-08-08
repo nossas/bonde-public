@@ -14,6 +14,7 @@ type Settings = {
   title_text?: string;
   call_script?: string;
   targets?: Target[];
+  finish_message_html_text?: string;
 }
 
 type Widget = {
@@ -31,7 +32,8 @@ export default function PhoneWidget({ widget }: Props) {
     main_color: mainColor,
     title_text: titleText,
     call_script: guideline,
-    targets = []
+    targets = [],
+    finish_message_html_text: postActionHtml
   } = widget.settings || {};
 
   return (
@@ -60,6 +62,7 @@ export default function PhoneWidget({ widget }: Props) {
         mainColor={mainColor || "blue"}
         guideline={guideline || ""}
         targets={targets}
+        postActionHtml={postActionHtml}
         onFinish={(state) => {
           console.log("onFinish", { state });
         }}
