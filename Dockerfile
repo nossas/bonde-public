@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:18-alpine
 
 # Configure all env vars to build imagem
 ARG SKIP_PREFLIGHT_CHECK
