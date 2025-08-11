@@ -1,3 +1,4 @@
+import React from 'react';
 import { PhonePressureForm } from "@bonde/actions-components";
 import styled from 'styled-components';
 import { defaultPhoneCall } from "./api";
@@ -184,6 +185,7 @@ const Styled = styled.div`
       color: white;
       text-transform: uppercase;
       margin-top: 1rem;
+      cursor: pointer;
     }
   }
-`
+`;
