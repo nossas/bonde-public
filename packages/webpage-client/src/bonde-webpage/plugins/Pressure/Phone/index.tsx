@@ -148,6 +148,11 @@ const Styled = styled.div`
       padding: 1rem 2rem 0.5rem;
       border-bottom: 1px solid #eee;
 
+      .bonde-action-field__addon {
+        border: none;
+        margin-right: 5px;
+      }
+
       input {
         border: none;
       }
