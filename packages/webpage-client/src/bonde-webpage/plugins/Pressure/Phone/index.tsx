@@ -1,7 +1,7 @@
 import React from 'react';
 import { PhonePressureForm } from "@bonde/actions-components";
 import styled from 'styled-components';
-import { defaultPhoneCall } from "./api";
+import { defaultPhoneCall, twilioPhoneNumber } from "./api";
 
 
 type Target = {
@@ -59,6 +59,7 @@ export default function PhoneWidget({ widget }: Props) {
       <PhonePressureForm
         widgetId={widget.id}
         action={defaultPhoneCall}
+        phoneNumber={twilioPhoneNumber}
         mainColor={mainColor || "blue"}
         guideline={guideline || ""}
         targets={targets}

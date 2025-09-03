@@ -36,7 +36,8 @@ module.exports = withTM(
       domainApiGraphql: process.env.REACT_APP_DOMAIN_API_GRAPHQL,
       domainApiGraphqlWs: process.env.REACT_APP_DOMAIN_API_GRAPHQL_WS,
       domainPublic: process.env.REACT_APP_DOMAIN_PUBLIC,
-      phoneApiUrl: process.env.NEXT_PUBLIC_PHONE_API_URL
+      phoneApiUrl: process.env.NEXT_PUBLIC_PHONE_API_URL,
+      phoneNumber: process.env.NEXT_PUBLIC_PHONE_NUMBER
     },
   })
 );

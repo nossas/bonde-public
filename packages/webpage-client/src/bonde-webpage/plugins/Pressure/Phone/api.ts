@@ -4,3 +4,5 @@ import { configureBondePhoneCall } from '@bonde/actions-components';
 const { publicRuntimeConfig } = getConfig();
 
 export const defaultPhoneCall = configureBondePhoneCall(publicRuntimeConfig.phoneApiUrl || "");
+
+export const twilioPhoneNumber = publicRuntimeConfig.phoneNumber || "+550000000";
