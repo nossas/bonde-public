@@ -680,11 +680,168 @@ const globalStyles = css`
   }
 `;
 
+const reactModalStyles = css`
+  .bonde-action-modal__overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .bonde-action-modal__content {
+    position: absolute;
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px 32px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+
+    .bonde-action-modal__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .bonde-action-modal__header {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .bonde-action-modal__body {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    &.bonde-action-modal--calling {
+      .bonde-action-modal__footer {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e0e0e0;
+        font-size: 0.875rem;
+        color: #666;
+        font-weight: 500;
+      }
+    }
+
+    &.bonde-action-modal--success {
+      .bonde-action-modal__body {
+        .bonde-phone-action__stack {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .bonde-phone-action__stack--segmented {
+          gap: 2rem;
+        }
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    &.bonde-action-modal--in-progress {
+      .bonde-action-modal__body {
+        .bonde-phone-action__stack {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+    }
+  }
+
+  .bonde-phone-call__retry-button {
+    /* Layout */
+    display: flex;
+    float: right;
+    gap: 10px;
+    max-width: 280px;
+    margin: 10px auto 0;
+    padding: 10px 20px;
+    
+    /* Estilo visual */
+    background-color: var(--bonde-action-brand-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    /* Tipografia */
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-transform: uppercase;
+    
+    /* Interação */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* Ícone */
+    svg {
+      font-size: 16px;
+      margin-right: 2px;
+    }
+  }
+  
+  .bonde-phone-call__retry-button:hover {
+    background-color: var(--bonde-action-brand-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  .bonde-phone-call__retry-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  
+  @media (max-width: 480px) {
+    .bonde-phone-call__retry-button {
+      padding: 14px 20px;
+      font-size: 15px;
+      max-width: 100%;
+    }
+  }
+
+  .bonde-phone-action__quote {
+    margin: 0.75rem 0;
+    padding-left: 1rem;
+    border-left: 4px solid #ccc;
+    font-style: italic;
+    color: #555;
+  }
+
+  .bonde-phone-action__divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 1rem 0;
+    width: 100%;
+  }  
+`;
+
+
 const Styles: React.FC = ({ children }) => (
   <>
     <Global styles={globalStyles} />
     <Global styles={layoutStyles} />
     <Global styles={slateEditorStyles} />
+    <Global styles={reactModalStyles} />
     {children}
   </>
 );

@@ -9,12 +9,12 @@ Para garantir o funcionamento correto, **é obrigatório utilizar as versões es
 
 Certifique-se de que você tem as seguintes ferramentas instaladas:
 
-1. **Node.js**: Utilize a versão `14`.  
+1. **Node.js**: Utilize a versão `18`.  
    Recomendamos o uso do [nvm](https://github.com/nvm-sh/nvm) para gerenciar as versões do Node.js.  
    Após instalar o nvm, você pode selecionar a versão correta com os comandos:
    ```bash
-   nvm install 14
-   nvm use 14
+   nvm install 18
+   nvm use 18
    ```
 
 2. **pnpm**: Utilize a versão `7.33.7`.
@@ -67,6 +67,7 @@ REACT_APP_DOMAIN_API_REST=
 REACT_APP_DOMAIN_IMAGINARY=
 REACT_APP_PAGARME_KEY=
 ACTION_SECRET_KEY=
+NEXT_PUBLIC_PHONE_API_URL=
 ```
 
 ---
@@ -75,6 +76,7 @@ ACTION_SECRET_KEY=
 
 - **`libs/`**: Contém as bibliotecas compartilhadas entre diferentes partes do projeto.
 - **`packages/webpage-client`**: Diretório principal da aplicação Next.js.
+- **`packages/actions-components`**: Sub-modulo com componentes de ação como Pressão por Telefone.
 
 ---
 

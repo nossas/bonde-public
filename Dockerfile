@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:18-alpine
 
 # Configure all env vars to build imagem
 ARG SKIP_PREFLIGHT_CHECK
@@ -27,6 +27,7 @@ ARG ACTION_SECRET_KEY
 ARG REACT_APP_AWS_ROUTE_IP
 ARG REACT_APP_HOTJAR_ID
 ARG REACT_APP_HOTJAR_SV
+ARG NEXT_PUBLIC_PHONE_API_URL
 
 # Print variables config
 RUN env
@@ -45,5 +46,7 @@ ENV SKIP_PREFLIGHT_CHECK=true
 RUN pnpm i
 
 RUN pnpm --filter "./libs/**" m run build
+
+RUN pnpm --filter "./packages/actions-components" m run build
 
 RUN pnpm --filter "./packages/webpage-client" m run build
