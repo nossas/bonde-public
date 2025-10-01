@@ -1,5 +1,6 @@
 import React from 'react';
 import { PhonePressureForm } from "@bonde/actions-components";
+import { Count } from '../components';
 import styled from 'styled-components';
 import { defaultPhoneCall, twilioPhoneNumber } from "./api";
 
@@ -15,11 +16,13 @@ type Settings = {
   call_script?: string;
   targets?: Target[];
   finish_message_html_text?: string;
+  count_text?: string;
 }
 
 type Widget = {
   id: number;
   settings?: Settings;
+  count: number;
 }
 
 type Props = {
@@ -33,7 +36,8 @@ export default function PhoneWidget({ widget }: Props) {
     title_text: titleText,
     call_script: guideline,
     targets = [],
-    finish_message_html_text: postActionHtml
+    finish_message_html_text: postActionHtml,
+    count_text: countText,
   } = widget.settings || {};
 
   return (
@@ -74,6 +78,15 @@ export default function PhoneWidget({ widget }: Props) {
           console.log("onSuccess");
         }}
       />
+      {countText && (
+        <Count
+          shadow
+          value={widget.count || 0}
+          color={mainColor || 'black'}
+          text={countText}
+          startCounting={typeof window !== 'undefined'}
+        />
+      )}
     </Styled>
   );
 }
