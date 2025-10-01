@@ -13,7 +13,7 @@ const asyncFilterWidgetGraphql = async ({ slug, custom_domain }: any) => {
   return GraphQLAPI.query({
     query: gql`
       query ($filter: mobilizations_bool_exp!) {
-        widgets(where: { block: { mobilization: $filter } }, order_by: { id: asc }) {
+        widgets(where: { block: { mobilization: $filter, hidden: {_neq: true} } }, order_by: { id: asc }) {
           id
           kind
           goal
@@ -25,19 +25,7 @@ const asyncFilterWidgetGraphql = async ({ slug, custom_domain }: any) => {
           md_size
           lg_size
 
-          activist_pressures_aggregate {
-            aggregate {
-              count
-            }
-          }
-
-          form_entries_aggregate {
-            aggregate {
-              count
-            }
-          }
-
-          donations_aggregate {
+          actions_count: analyze_activist_actions_aggregate {
             aggregate {
               count
             }
@@ -53,16 +41,16 @@ const asyncFilterWidgetGraphql = async ({ slug, custom_domain }: any) => {
     //   type: 'FILTER_WIDGETS_SUCCESS',
     //   payload: data.widgets.map((w: WidgetGraphQL) => ({
     //     ...w,
-    //     form_entries_count: w.form_entries_aggregate.aggregate.count,
-    //     donations_count: w.donations_aggregate.aggregate.count,
-    //     count: w.activist_pressures_aggregate.aggregate.count
+    //     form_entries_count: w.actions_count.aggregate.count,
+    //     donations_count: w.actions_count.aggregate.count,
+    //     count: w.actions_count.aggregate.count
     //   }))
     // });
     return Promise.resolve({ widgets: data.widgets.map((w: WidgetGraphQL) => ({
       ...w,
-      form_entries_count: w.form_entries_aggregate.aggregate.count,
-      donations_count: w.donations_aggregate.aggregate.count,
-      count: w.activist_pressures_aggregate.aggregate.count
+      form_entries_count: w.actions_count.aggregate.count,
+      donations_count: w.actions_count.aggregate.count,
+      count: w.actions_count.aggregate.count
     }))})
   })
   .catch((err: any) => {

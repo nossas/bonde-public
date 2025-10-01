@@ -22,9 +22,7 @@ export type WidgetGraphQL = {
   sm_size: string
   md_size: string
   lg_size: string
-  activist_pressures_aggregate: Aggregate
-  form_entries_aggregate: Aggregate
-  donations_aggregate: Aggregate
+  actions_count: Aggregate
 }
 
 export type CommunityGraphQL = {
