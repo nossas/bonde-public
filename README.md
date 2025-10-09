@@ -49,6 +49,10 @@ Para realizar o build de toda a aplicação, execute os seguintes comandos:
    ```bash
    pnpm --filter "./packages/webpage-client" m run build
    ```
+3. Build dos componentes:  
+   ```bash
+   pnpm --filter actions-components m run build
+   ```
 
 ---
 
