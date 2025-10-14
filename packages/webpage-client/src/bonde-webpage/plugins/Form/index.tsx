@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // import { intlShape } from 'react-intl'
 import styled from '@emotion/styled';
@@ -128,6 +128,17 @@ const FormPlugin = (props: Props) => {
   const [errors, setErrors] = useState<Array<string>>([]);
   const [values, setValues] = useState<Record<string, string>>({});
   const [count, setCount] = useState<number>(widget.form_entries_count || 0);
+  const messageRef = useRef(null);
+  
+
+ useEffect(() => {
+    if(status === 'fulfilled' && messageRef?.current){
+      messageRef?.current?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  }, [status]);
 
   const handleSubmit = (t: any) => async (e: any) => {
     e.preventDefault();
@@ -204,7 +215,9 @@ const FormPlugin = (props: Props) => {
   return (
     <div id={`widget-${widget.id}`} className={`widget ${headerFont}-header`}>
       {status === 'fulfilled' ? (
-        <ShareButtons {...props} />
+        <div ref={messageRef}>
+          <ShareButtons {...props} />
+        </div>
       ) : (
         renderForm(props, errors)
       )}
