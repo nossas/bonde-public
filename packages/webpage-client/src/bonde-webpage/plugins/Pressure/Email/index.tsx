@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useRef, useEffect } from 'react';
 
 import { Translate } from '../../../components/MobilizationClass';
 import { Count, Form, Targets } from '../components';
@@ -96,6 +96,16 @@ export const EmailPressure = ({
   overrides,
 }: Props): any => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const messageRef = useRef(null);
+
+  useEffect(() => {
+    if(state.data && messageRef?.current){
+      (messageRef?.current as any).scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  }, [state.data]);
 
   const {
     main_color: mainColor,
@@ -181,26 +191,30 @@ export const EmailPressure = ({
       const values = state.data.form_data
       const content = widget.settings.finish_message_html_text?.replace(/{{(.*?)}}/g, (_, chave) => values[chave] || `{{${chave}}}`)
       
-      return <Container dangerouslySetInnerHTML={{__html: content || ''}} />;
+      return (<div ref={messageRef}><Container dangerouslySetInnerHTML={{__html: content || ''}} /></div>);
     }
   
     if (finishMessageType === 'custom') {
       return (
-        <FinishCustomMessage
-          mobilization={mobilization}
-          widget={widget}
-          {...customProps}
-        />
+        <div ref={messageRef}>
+          <FinishCustomMessage
+            mobilization={mobilization}
+            widget={widget}
+            {...customProps}
+          />
+        </div>
       );
     }
   
     // Fallback para o tipo "share" ou qualquer outro valor não tratado
     return (
-      <FinishDefaultMessage
-        mobilization={mobilization}
-        widget={widget}
-        {...defaultProps}
-      />
+      <div ref={messageRef}>
+        <FinishDefaultMessage
+          mobilization={mobilization}
+          widget={widget}
+          {...defaultProps}
+        />
+      </div>
     );
   }
 
