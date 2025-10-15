@@ -133,7 +133,7 @@ const FormPlugin = (props: Props) => {
 
  useEffect(() => {
     if(status === 'fulfilled' && messageRef?.current){
-      messageRef?.current?.scrollIntoView({ 
+      (messageRef?.current as any).scrollIntoView({ 
         behavior: 'smooth', 
         block: 'start' 
       });

@@ -100,7 +100,7 @@ export const EmailPressure = ({
 
   useEffect(() => {
     if(state.data && messageRef?.current){
-      messageRef?.current?.scrollIntoView({ 
+      (messageRef?.current as any).scrollIntoView({ 
         behavior: 'smooth', 
         block: 'start' 
       });
