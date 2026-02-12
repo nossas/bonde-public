@@ -9,6 +9,15 @@ import LGPD from '../../components/ux/LGPD';
 import { Button, Input, Raise, ShareButtons } from './components';
 import { getFieldName, validate, fields, addValueToFields } from './utils';
 
+export const Container = styled.div`
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  overflow: auto;
+`;
+
 type Props = {
   mobilization:
   | {
@@ -21,6 +30,7 @@ type Props = {
   widget: {
     settings: {
       finish_message_type?: string;
+      finish_message_html_text?: string;
       fields: Array<any>;
       count_text?: string;
       button_text: string;
@@ -211,6 +221,20 @@ const FormPlugin = (props: Props) => {
   };
 
   const { header_font: headerFont } = mobilization;
+
+  if (status === 'fulfilled' && widget.settings.finish_message_type === 'html') {
+      // Usa as variaveis do formulário de pressão
+      // email, name, lastname, state, city
+      // TODO get values
+      const values = {};
+      const content = widget.settings.finish_message_html_text?.replace(/{{(.*?)}}/g, (_, chave) => values[chave] || `{{${chave}}}`);
+      
+      return (
+        <div id={`widget-${widget.id}`} className={`widget ${headerFont}-header`}>
+          <div ref={messageRef}><Container dangerouslySetInnerHTML={{__html: content || ''}} /></div>
+        </div>
+      );
+  }
 
   return (
     <div id={`widget-${widget.id}`} className={`widget ${headerFont}-header`}>
