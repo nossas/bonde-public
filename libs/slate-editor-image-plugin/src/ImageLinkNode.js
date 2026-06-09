@@ -69,7 +69,7 @@ class ImageLinkNode extends Component {
                 }`}
                 src={`${
                   process.env.REACT_APP_DOMAIN_IMAGINARY
-                }/convert?url=${node.data.get("src")}&type=png`}
+                }/convert?url=${node.data.get("src")}&type=webp`}
                 title={node.data.get("title")}
                 alt={node.data.get("title")}
               />
