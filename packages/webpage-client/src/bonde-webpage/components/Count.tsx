@@ -36,7 +36,7 @@ const Wrapper = styled.div<WrapperProps>`
 `;
 
 const Title = styled.h1<{ color: string; shadow?: boolean }>`
-  color: ${props => props.color}!important;
+  color: ${props => props.color} !important;
   font-weight: 300;
   font-size: 2.15rem;
   margin: 15px 0;
@@ -47,13 +47,12 @@ const Title = styled.h1<{ color: string; shadow?: boolean }>`
     `
     font-size: 1.25rem;
     margin: 0 5px;
-    color: #fff!important;
     font-weight: normal;
   `}
 `;
 
-const Subtitle = styled.h3<{ shadow?: boolean }>`
-  color: #111 !important;
+const Subtitle = styled.h3<{ shadow?: boolean, color: string }>`
+  color: ${props => props.color} !important;
   font-weight: 700;
   font-size: 1.25rem;
   margin: 0;
@@ -63,7 +62,6 @@ const Subtitle = styled.h3<{ shadow?: boolean }>`
     !props.shadow &&
     `
     font-weight: normal;
-    color: #fff!important;
   `}
 `;
 
@@ -93,7 +91,9 @@ const Count = ({
           duration={5}
         />
       </Title>
-      <Subtitle shadow={shadow}>{text}</Subtitle>
+      <Subtitle shadow={shadow} color={color}>
+        {text}
+      </Subtitle>
     </Wrapper>
   );
 };
