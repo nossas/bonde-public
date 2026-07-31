@@ -7,7 +7,7 @@ import { Count } from '../../components';
 import { Translate } from '../../components/MobilizationClass';
 import LGPD from '../../components/ux/LGPD';
 import { Button, Input, Raise, ShareButtons } from './components';
-import { getFieldName, validate, fields, addValueToFields } from './utils';
+import { getFieldName, validate, fields, addValueToFields, getContrastTextColor } from './utils';
 
 export const Container = styled.div`
   background-color: white;
@@ -37,6 +37,10 @@ type Props = {
     };
     id: number;
     form_entries_count: any;
+  };
+  block?: {
+    bg_class?: string;
+    bg_image?: string;
   };
   analyticsEvents: {
     formIsFilled: () => void;
@@ -133,7 +137,7 @@ const renderErrors = (errors: Array<any>) => {
 };
 
 const FormPlugin = (props: Props) => {
-  const { asyncFormEntryCreate, mobilization, widget } = props;
+  const { asyncFormEntryCreate, mobilization, widget, block } = props;
   const [status, setStatus] = useState<string>('idle');
   const [errors, setErrors] = useState<Array<string>>([]);
   const [values, setValues] = useState<Record<string, string>>({});
@@ -251,7 +255,7 @@ const FormPlugin = (props: Props) => {
           value={count}
           text={widget.settings.count_text || 'formulários preenchidos'}
           fontFamily={mobilization.body_font}
-          color={mobilization.main_color || '#000'}
+          color={getContrastTextColor(block, mobilization.main_color)}
         />
       )}
     </div>
