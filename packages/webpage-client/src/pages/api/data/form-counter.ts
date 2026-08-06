@@ -21,7 +21,9 @@ const FormCounter = async (req: any, res: any) => {
     });
     return res.status(200).json({ data: { count: data.form_entries_aggregate.aggregate.count } });
   }
+
   return res.status(400);
+
 };
 
 export default FormCounter;
