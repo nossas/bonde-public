@@ -23,7 +23,9 @@ const FormCounter = async (req: any, res: any) => {
     });
     return res.status(200).json(data.widgets[0]?.form_entries_aggregate.aggregate.count ?? 0);
   }
+
   return res.status(400);
+
 };
 
 export default FormCounter;
