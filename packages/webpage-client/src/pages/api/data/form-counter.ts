@@ -4,9 +4,11 @@ import { client } from '../../../apis/graphql';
 
 const query = gql`
   query ($widget_id: Int!) {
-    form_entries_aggregate(where: { widget_id: { _eq: $widget_id } }) {
-      aggregate {
-        count
+    widgets(where: { id: { _eq: $widget_id } }) {
+      form_entries_aggregate {
+        aggregate {
+          count
+        }
       }
     }
   }
@@ -19,7 +21,7 @@ const FormCounter = async (req: any, res: any) => {
       variables: { widget_id: req.body.widget_id },
       fetchPolicy: 'network-only',
     });
-    return res.status(200).json({ data: { count: data.form_entries_aggregate.aggregate.count } });
+    return res.status(200).json(data.widgets[0]?.form_entries_aggregate.aggregate.count ?? 0);
   }
   return res.status(400);
 };
