@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 import { client } from '../../../apis/graphql';
+import { applyCors } from '../../../apis/cors';
 
 const query = gql`
   query ($widget_id: Int!) {
@@ -15,6 +16,8 @@ const query = gql`
 `;
 
 const FormCounter = async (req: any, res: any) => {
+  if (applyCors(req, res)) return;
+
   if (req.method === 'POST') {
     const { data } = await client.query({
       query,
