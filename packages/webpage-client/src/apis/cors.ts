@@ -1,6 +1,7 @@
 const ALLOWED_ORIGINS = [
   /^https?:\/\/(www\.)?brasilcontrabets\.com$/,
   /^https?:\/\/(www\.)?fimdaescala6x1\.com$/,
+  /^https?:\/\/(www\.)?graunapraca\.org$/,
   /^https?:\/\/(www\.)?serradocurralprotegida\.com$/,
   /^https?:\/\/(www\.)?direitoaonossocorpo\.org$/,
   /^https?:\/\/([a-z0-9-]+\.)*bonde\.org$/,
